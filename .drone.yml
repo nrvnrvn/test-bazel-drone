@@ -1,0 +1,14 @@
+---
+kind: pipeline
+name: default
+
+steps:
+- name: testenv
+  image: busybox
+  commands:
+  - env
+---
+kind: signature
+hmac: 87382fd4a5187a8a9e7556e1185e3d71031dcda2d3255160751cbdf29e0b9365
+
+...

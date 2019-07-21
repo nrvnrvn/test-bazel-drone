@@ -1,9 +1,0 @@
----
-kind: pipeline
-name: default
-
-steps:
-- name: testenv
-  image: busybox
-  commands:
-  - env
