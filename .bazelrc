@@ -1,6 +1,6 @@
 # https://github.com/bazelbuild/rules_docker/issues/842
 build --host_force_python=PY2
-test --host_force_python=PY2
+test --host_force_python=PY2 --sandbox_debug --test_output=errors
 run --host_force_python=PY2
 
 

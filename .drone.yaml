@@ -3,13 +3,17 @@ kind: pipeline
 name: default
 
 steps:
-- name: testbazel
+- name: query
   image: l.gcr.io/google/bazel:0.28.0
   commands:
   - env
   - bazel query //...
+- name: test
+  image: l.gcr.io/google/bazel:0.28.0
+  commands:
+  - ./hack/test.sh
 ---
 kind: signature
-hmac: ba7a5bb3bf94844d981b9b2b63013492061b868e8fd9ec1384490379668e09da
+hmac: 567665498c238a78a66a30b4b6b345c2a942b63c654d1f039148fad598a43448
 
 ...
