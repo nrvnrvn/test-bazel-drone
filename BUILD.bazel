@@ -1,0 +1,43 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/nrvnrvn/test-bazel-drone
+# gazelle:proto disable_global
+gazelle(
+    name = "gazelle",
+    command = "fix",
+)
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/nrvnrvn/test-bazel-drone",
+    visibility = ["//visibility:private"],
+    deps = ["//vendor/golang.org/x/crypto/curve25519:go_default_library"],
+)
+
+go_binary(
+    name = "test-bazel-drone",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
+
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+
+go_image(
+    name = "test-bazel-drone-image",
+    base = "@distroless_static//image",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
+
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+
+container_push(
+    name = "image",
+    format = "Docker",
+    image = ":test-bazel-drone-image",
+    registry = "index.docker.io",
+    repository = "nrvnrvn/test-bazel-drone",
+    tag = "{STABLE_GITHUB_TAG}",
+)

@@ -7,8 +7,9 @@ steps:
   image: busybox
   commands:
   - env
+  - echo ok
 ---
 kind: signature
-hmac: 87382fd4a5187a8a9e7556e1185e3d71031dcda2d3255160751cbdf29e0b9365
+hmac: 7205dce80c99e6b7adf80e064540ef29d661d1d1ddae1231f762df29466c48a7
 
 ...
