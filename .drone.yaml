@@ -4,12 +4,12 @@ name: default
 
 steps:
 - name: testbazel
-  image: gcr.io/google/bazel:0.28.1
+  image: l.gcr.io/google/bazel:0.28.0
   commands:
   - env
   - bazel query //...
 ---
 kind: signature
-hmac: 216de69a168d12ff551c2ca17b048fddde7d89574f416941a1ce89104d5308fa
+hmac: ba7a5bb3bf94844d981b9b2b63013492061b868e8fd9ec1384490379668e09da
 
 ...
