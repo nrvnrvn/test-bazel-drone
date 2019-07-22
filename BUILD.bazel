@@ -8,6 +8,12 @@ gazelle(
     command = "fix",
 )
 
+#load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+#
+#buildifier(
+#    name = "buildifier",
+#)
+
 go_library(
     name = "go_default_library",
     srcs = ["main.go"],
@@ -39,5 +45,5 @@ container_push(
     image = ":test-bazel-drone-image",
     registry = "index.docker.io",
     repository = "nrvnrvn/test-bazel-drone",
-    tag = "{STABLE_GITHUB_TAG}",
+    #    tag = "{STABLE_GITHUB_TAG}",
 )

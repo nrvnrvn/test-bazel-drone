@@ -3,13 +3,13 @@ kind: pipeline
 name: default
 
 steps:
-- name: testenv
-  image: busybox
+- name: testbazel
+  image: gcr.io/google/bazel:0.28.1
   commands:
   - env
-  - echo ok
+  - bazel query //...
 ---
 kind: signature
-hmac: 7205dce80c99e6b7adf80e064540ef29d661d1d1ddae1231f762df29466c48a7
+hmac: 216de69a168d12ff551c2ca17b048fddde7d89574f416941a1ce89104d5308fa
 
 ...
