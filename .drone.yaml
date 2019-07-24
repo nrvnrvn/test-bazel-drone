@@ -8,12 +8,14 @@ steps:
   commands:
   - env | sort
   - bazel query //...
+  - ls -la
 - name: test
   image: l.gcr.io/google/bazel:0.28.0
   commands:
   - ./hack/test.sh
+  - ls -la
 ---
 kind: signature
-hmac: 1e20123a7401f846f3c3f8d7b8ad073e221df5eb2220ffb8fe66f1dd88c36829
+hmac: 6a60e352aadd0188199393aff4fa8552af8375d736f274409bcabfb9b24ea2ba
 
 ...
