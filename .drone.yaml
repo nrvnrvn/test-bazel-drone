@@ -6,7 +6,7 @@ steps:
 - name: query
   image: l.gcr.io/google/bazel:0.28.0
   commands:
-  - env
+  - env | sort
   - bazel query //...
 - name: test
   image: l.gcr.io/google/bazel:0.28.0
@@ -14,6 +14,6 @@ steps:
   - ./hack/test.sh
 ---
 kind: signature
-hmac: 567665498c238a78a66a30b4b6b345c2a942b63c654d1f039148fad598a43448
+hmac: 1e20123a7401f846f3c3f8d7b8ad073e221df5eb2220ffb8fe66f1dd88c36829
 
 ...

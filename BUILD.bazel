@@ -22,6 +22,12 @@ go_library(
     deps = ["//vendor/golang.org/x/crypto/curve25519:go_default_library"],
 )
 
+go_test(
+    name = "go_default_test",
+    srcs = ["main_test.go"],
+    embed = [":go_default_library"],
+)
+
 go_binary(
     name = "test-bazel-drone",
     embed = [":go_default_library"],
@@ -37,6 +43,14 @@ go_image(
     visibility = ["//visibility:public"],
 )
 
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+
+pkg_tar(
+    name = "tar",
+    extension = "tgz",
+    srcs = [":test-bazel-drone"],
+)
+
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 
 container_push(
@@ -48,8 +62,3 @@ container_push(
     #    tag = "{STABLE_GITHUB_TAG}",
 )
 
-go_test(
-    name = "go_default_test",
-    srcs = ["main_test.go"],
-    embed = [":go_default_library"],
-)
