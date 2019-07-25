@@ -30,8 +30,10 @@ steps:
 volumes:
 - name: cache
   temp: {}
+image_pull_secrets:
+- test-secret
 ---
 kind: signature
-hmac: de82a936c986bfc53c33a0d6114c8ae772a18e750833c4a3fd7b4d38a06d678c
+hmac: c830c66648a722e339cc05f747b8a2b0200efdd9cf6d4c3f8fafb1de608d2a36
 
 ...
