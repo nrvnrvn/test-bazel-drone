@@ -54,12 +54,13 @@ steps:
     - push
 
 - name: publish release
-  image: busybox
-#  settings:
-#    api_key: xxxxxxxx
-#    files: dist/*
-  commands:
-  - ls -lh bazel-bin/
+  image: plugins/github-release
+  settings:
+    api_key:
+      from_secret: github-release-token
+    files: bazel-bin/*.tgz
+    checksum:
+    - sha512
   volumes:
   - name: cache
     path: /root/.cache
@@ -68,13 +69,13 @@ steps:
     - master
     event:
     - tag
-    - push
+#    - push
 
 volumes:
 - name: cache
   temp: {}
 ---
 kind: signature
-hmac: 1b423c8a79625f17c9340ab4c4136fc7e72472e5bc90b07c3768adb811b9eea4
+hmac: 1c988ba94ca8f7edc88110ac6d7c19c487acaae80b97bb5341f7242dd8dccef0
 
 ...
