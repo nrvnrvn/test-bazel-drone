@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: default
+name: test-bazel
 
 steps:
 - name: query
@@ -8,14 +8,30 @@ steps:
   commands:
   - env | sort
   - bazel query //...
-  - ls -la
+  - cat .docker/config.json
+  volumes:
+  - name: cache
+    path: /root/.cache
 - name: test
   image: l.gcr.io/google/bazel:0.28.0
   commands:
   - ./hack/test.sh
-  - ls -la
+  volumes:
+  - name: cache
+    path: /root/.cache
+- name: build
+  image: l.gcr.io/google/bazel:0.28.0
+  commands:
+  - ./hack/build.sh
+  volumes:
+  - name: cache
+    path: /root/.cache
+
+volumes:
+- name: cache
+  temp: {}
 ---
 kind: signature
-hmac: 6a60e352aadd0188199393aff4fa8552af8375d736f274409bcabfb9b24ea2ba
+hmac: 5d30d2eed7e32bfb96482ca7c17b92333890f72034558f8fd51c9f8eef9e5138
 
 ...

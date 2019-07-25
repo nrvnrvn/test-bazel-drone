@@ -3,8 +3,8 @@
 set -euo pipefail
 
 # clear dependencies
-> go.mod.bzl
-> go.sum
+true > go.mod.bzl
+true > go.sum
 
 # verify and vendor all dependencies
 go mod verify
