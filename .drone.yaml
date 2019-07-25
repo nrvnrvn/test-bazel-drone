@@ -30,7 +30,7 @@ steps:
     DOCKER_AUTH:
       from_secret: docker-config-json
   commands:
-  - ./hack/drone-release-image.sh
+  - ./hack/release-image.sh
   volumes:
   - name: cache
     path: /root/.cache
@@ -43,6 +43,6 @@ volumes:
   temp: {}
 ---
 kind: signature
-hmac: 669e5e810f339abf409a40bf2742c83c9496aa579b394b1e7300d3c42e50eb8b
+hmac: e7e5f41cf1b826bdaa26fc3b180717fcafd817265bda8cbc182126c1c4a3034f
 
 ...
