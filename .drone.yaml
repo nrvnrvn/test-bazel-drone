@@ -8,7 +8,7 @@ steps:
   commands:
   - env | sort
   - bazel query //...
-  - cat .docker/config.json
+  - cat /root/.docker/config.json
   volumes:
   - name: cache
     path: /root/.cache
@@ -32,6 +32,6 @@ volumes:
   temp: {}
 ---
 kind: signature
-hmac: 5d30d2eed7e32bfb96482ca7c17b92333890f72034558f8fd51c9f8eef9e5138
+hmac: de82a936c986bfc53c33a0d6114c8ae772a18e750833c4a3fd7b4d38a06d678c
 
 ...
