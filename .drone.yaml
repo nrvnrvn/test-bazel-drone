@@ -30,11 +30,9 @@ steps:
   - name: cache
     path: /root/.cache
   when:
-    branch:
-    - master
-    event:
-    - tag
-    - push
+    ref:
+    - refs/heads/master
+    - refs/tags/v*
 
 - name: build binaries
   image: l.gcr.io/google/bazel:0.28.0
@@ -47,11 +45,9 @@ steps:
   - name: cache
     path: /root/.cache
   when:
-    branch:
-    - master
-    event:
-    - tag
-    - push
+    ref:
+    - refs/heads/master
+    - refs/tags/v*
 
 - name: publish release
   image: plugins/github-release
@@ -65,17 +61,15 @@ steps:
   - name: cache
     path: /root/.cache
   when:
-    branch:
-    - master
-    event:
-    - tag
-#    - push
+    ref:
+    - refs/heads/master
+    - refs/tags/v*
 
 volumes:
 - name: cache
   temp: {}
 ---
 kind: signature
-hmac: 1c988ba94ca8f7edc88110ac6d7c19c487acaae80b97bb5341f7242dd8dccef0
+hmac: 23bb8f32e59d152f64a71fcfc09dd6b8f70e3fcc7b43f60198ab47eb07661a71
 
 ...
