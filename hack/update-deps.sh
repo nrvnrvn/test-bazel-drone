@@ -18,7 +18,10 @@ find vendor -iname BUILD.bazel -delete
 bazel run //:gazelle -- update-repos -from_file=go.mod -to_macro=go.mod.bzl%go_repositories
 
 # beautify bazel files
-buildifier $(find . -type f -iname BUILD.bazel -o -name WORKSPACE)
+buildifier $(find . -type f -iname BUILD.bazel -o -name WORKSPACE) | while IFS='' read -r buildfile
+do
+  buildifier "${buildfile}"
+done
 
 # create and update build files
 bazel run //:gazelle

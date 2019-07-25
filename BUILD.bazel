@@ -19,12 +19,12 @@ go_library(
     srcs = ["main.go"],
     importpath = "github.com/nrvnrvn/test-bazel-drone",
     visibility = ["//visibility:private"],
-    deps = ["//vendor/golang.org/x/crypto/curve25519:go_default_library"],
     x_defs = {
-    "version": "{version}",
-    "buildDate": "{buildDate}",
-    "gitCommit": "{gitCommit}",
+        "version": "{version}",
+        "buildDate": "{buildDate}",
+        "gitCommit": "{gitCommit}",
     },
+    deps = ["//vendor/golang.org/x/crypto/curve25519:go_default_library"],
 )
 
 go_test(
@@ -52,8 +52,8 @@ load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
 
 pkg_tar(
     name = "tar",
-    extension = "tgz",
     srcs = [":test-bazel-drone"],
+    extension = "tgz",
 )
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")
@@ -66,4 +66,3 @@ container_push(
     repository = "nrvnrvn/test-bazel-drone",
     tag = "{image_tag}",
 )
-

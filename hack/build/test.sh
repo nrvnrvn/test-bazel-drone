@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+# test testing step
+
+# test go package
+bazel test //...
+
 # test building steps
 
 # build the binary

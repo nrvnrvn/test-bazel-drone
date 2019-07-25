@@ -14,14 +14,7 @@ steps:
 - name: test
   image: l.gcr.io/google/bazel:0.28.0
   commands:
-  - ./hack/test.sh
-  volumes:
-  - name: cache
-    path: /root/.cache
-- name: build
-  image: l.gcr.io/google/bazel:0.28.0
-  commands:
-  - ./hack/build.sh
+  - ./hack/build/test.sh
   volumes:
   - name: cache
     path: /root/.cache
@@ -32,47 +25,39 @@ steps:
     DOCKER_AUTH:
       from_secret: docker-config-json
   commands:
-  - ./hack/release-image.sh
+  - ./hack/build/release-image.sh
   volumes:
   - name: cache
     path: /root/.cache
   when:
     branch:
     - master
+    event:
+    - tag
+    - push
 
-- name: build linux binary
+- name: build binaries
   image: l.gcr.io/google/bazel:0.28.0
   environment:
     DOCKER_AUTH:
       from_secret: docker-config-json
   commands:
-  - bazel build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //:test-bazel-drone
+  - ./hack/build/build-binaries.sh
   volumes:
   - name: cache
     path: /root/.cache
   when:
     branch:
     - master
+    event:
+    - tag
+    - push
 
-- name: build windows binary
-  image: l.gcr.io/google/bazel:0.28.0
-  environment:
-    DOCKER_AUTH:
-      from_secret: docker-config-json
-  commands:
-  - bazel build --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 //:test-bazel-drone
-  volumes:
-  - name: cache
-    path: /root/.cache
-  when:
-    branch:
-    - master
-
-- name: build list all binaries
-  image: l.gcr.io/google/bazel:0.28.0
-  environment:
-    DOCKER_AUTH:
-      from_secret: docker-config-json
+- name: publish release
+  image: busybox
+#  settings:
+#    api_key: xxxxxxxx
+#    files: dist/*
   commands:
   - ls -lh bazel-bin/
   volumes:
@@ -81,15 +66,15 @@ steps:
   when:
     branch:
     - master
-  depends_on:
-  - build linux binary
-  - build windows binary
+    event:
+    - tag
+    - push
 
 volumes:
 - name: cache
   temp: {}
 ---
 kind: signature
-hmac: 7514c9476e49782873d8e6cabd257d9db506a77439f2a3490c908df8d10da7ca
+hmac: 1b423c8a79625f17c9340ab4c4136fc7e72472e5bc90b07c3768adb811b9eea4
 
 ...
