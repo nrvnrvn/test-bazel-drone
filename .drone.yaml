@@ -1,14 +1,12 @@
 ---
 kind: pipeline
 name: test-bazel
-
 steps:
 - name: query
   image: l.gcr.io/google/bazel:0.28.0
   commands:
   - env | sort
   - bazel query //...
-  - cat /root/.docker/config.json
   volumes:
   - name: cache
     path: /root/.cache
@@ -26,14 +24,25 @@ steps:
   volumes:
   - name: cache
     path: /root/.cache
+- name: build and push docker image
+  image: l.gcr.io/google/bazel:0.28.0
+  environment:
+    DOCKER_AUTH:
+      from_secret: docker-config-json
+  commands:
+  - ./hack/drone-release-image.sh
+  volumes:
+  - name: cache
+    path: /root/.cache
+  when:
+    branch:
+    - master
 
 volumes:
 - name: cache
   temp: {}
-image_pull_secrets:
-- test-secret
 ---
 kind: signature
-hmac: c830c66648a722e339cc05f747b8a2b0200efdd9cf6d4c3f8fafb1de608d2a36
+hmac: 669e5e810f339abf409a40bf2742c83c9496aa579b394b1e7300d3c42e50eb8b
 
 ...

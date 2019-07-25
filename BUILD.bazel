@@ -59,6 +59,6 @@ container_push(
     image = ":test-bazel-drone-image",
     registry = "index.docker.io",
     repository = "nrvnrvn/test-bazel-drone",
-    tag = "{lol}",
+    tag = "{image_tag}",
 )
 
