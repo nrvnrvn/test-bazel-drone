@@ -10,6 +10,7 @@ steps:
   volumes:
   - name: cache
     path: /root/.cache
+
 - name: test
   image: l.gcr.io/google/bazel:0.28.0
   commands:
@@ -24,6 +25,7 @@ steps:
   volumes:
   - name: cache
     path: /root/.cache
+
 - name: build and push docker image
   image: l.gcr.io/google/bazel:0.28.0
   environment:
@@ -38,11 +40,56 @@ steps:
     branch:
     - master
 
+- name: build linux binary
+  image: l.gcr.io/google/bazel:0.28.0
+  environment:
+    DOCKER_AUTH:
+      from_secret: docker-config-json
+  commands:
+  - bazel build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //:test-bazel-drone
+  volumes:
+  - name: cache
+    path: /root/.cache
+  when:
+    branch:
+    - master
+
+- name: build windows binary
+  image: l.gcr.io/google/bazel:0.28.0
+  environment:
+    DOCKER_AUTH:
+      from_secret: docker-config-json
+  commands:
+  - bazel build --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 //:test-bazel-drone
+  volumes:
+  - name: cache
+    path: /root/.cache
+  when:
+    branch:
+    - master
+
+- name: build list all binaries
+  image: l.gcr.io/google/bazel:0.28.0
+  environment:
+    DOCKER_AUTH:
+      from_secret: docker-config-json
+  commands:
+  - ls -lh bazel-bin/
+  volumes:
+  - name: cache
+    path: /root/.cache
+  when:
+    branch:
+    - master
+  depends_on:
+  - build linux binary
+  - build windows binary
+
 volumes:
 - name: cache
   temp: {}
 ---
 kind: signature
-hmac: e7e5f41cf1b826bdaa26fc3b180717fcafd817265bda8cbc182126c1c4a3034f
+hmac: 7514c9476e49782873d8e6cabd257d9db506a77439f2a3490c908df8d10da7ca
 
 ...
