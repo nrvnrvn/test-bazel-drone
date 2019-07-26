@@ -34,9 +34,17 @@ go_test(
 )
 
 go_binary(
-    name = "test-bazel-drone",
+    name = "secreter",
     embed = [":go_default_library"],
     visibility = ["//visibility:public"],
+)
+
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+
+pkg_tar(
+    name = "tar",
+    srcs = [":secreter"],
+    extension = "tgz",
 )
 
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
@@ -46,14 +54,6 @@ go_image(
     base = "@distroless_static//image",
     embed = [":go_default_library"],
     visibility = ["//visibility:public"],
-)
-
-load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
-
-pkg_tar(
-    name = "tar",
-    srcs = [":test-bazel-drone"],
-    extension = "tgz",
 )
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")

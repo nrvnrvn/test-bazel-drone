@@ -25,7 +25,7 @@ steps:
     DOCKER_AUTH:
       from_secret: docker-config-json
   commands:
-  - ./hack/build/release-image.sh
+  - ./hack/build/push-image.sh
   volumes:
   - name: cache
     path: /root/.cache
@@ -40,7 +40,7 @@ steps:
     DOCKER_AUTH:
       from_secret: docker-config-json
   commands:
-  - ./hack/build/build-binaries.sh
+  - ./hack/build/binaries.sh
   volumes:
   - name: cache
     path: /root/.cache
@@ -62,7 +62,6 @@ steps:
     path: /root/.cache
   when:
     ref:
-    - refs/heads/master
     - refs/tags/v*
 
 volumes:
@@ -70,6 +69,6 @@ volumes:
   temp: {}
 ---
 kind: signature
-hmac: 23bb8f32e59d152f64a71fcfc09dd6b8f70e3fcc7b43f60198ab47eb07661a71
+hmac: 18922841c7386c6a34b06e44cb18235566a3c7222e44191852fcd906f55de298
 
 ...
