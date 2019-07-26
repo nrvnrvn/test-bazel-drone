@@ -9,8 +9,5 @@ bazel test //...
 
 # test building steps
 
-# build the binary
-bazel build //:test-bazel-drone
-
-# build the image
-bazel build //:test-bazel-drone-image.tar
+# try build all
+bazel build //...
