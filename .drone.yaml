@@ -46,7 +46,6 @@ steps:
     path: /root/.cache
   when:
     ref:
-    - refs/heads/master
     - refs/tags/v*
 
 - name: publish release
@@ -69,6 +68,6 @@ volumes:
   temp: {}
 ---
 kind: signature
-hmac: 18922841c7386c6a34b06e44cb18235566a3c7222e44191852fcd906f55de298
+hmac: 3815a248e6b1f97aaab3595693ee7bc312a87c87b856d0a4debd9246debb3344
 
 ...
