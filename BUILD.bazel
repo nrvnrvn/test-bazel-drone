@@ -8,12 +8,6 @@ gazelle(
     command = "fix",
 )
 
-#load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
-#
-#buildifier(
-#    name = "buildifier",
-#)
-
 go_library(
     name = "go_default_library",
     srcs = ["main.go"],
@@ -34,7 +28,7 @@ go_test(
 )
 
 go_binary(
-    name = "secreter",
+    name = "test-bazel-drone",
     embed = [":go_default_library"],
     visibility = ["//visibility:public"],
 )
@@ -43,7 +37,7 @@ load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
 
 pkg_tar(
     name = "tar",
-    srcs = [":secreter"],
+    srcs = [":test-bazel-drone"],
     extension = "tgz",
 )
 

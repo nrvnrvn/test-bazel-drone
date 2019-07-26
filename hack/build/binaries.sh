@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# build binaries for multiple platforms
 # copied from https://github.com/kubernetes/kubernetes/blob/v1.15.1/hack/lib/golang.sh#L42-L53
 readonly KUBE_SUPPORTED_CLIENT_PLATFORMS=(
   linux_amd64
@@ -17,6 +16,7 @@ readonly KUBE_SUPPORTED_CLIENT_PLATFORMS=(
   windows_386
 )
 
+# build binaries for multiple platforms
 for platform in "${KUBE_SUPPORTED_CLIENT_PLATFORMS[@]}"; do
   bazel build --platforms "@io_bazel_rules_go//go/toolchain:${platform}" //:tar
   mv -f bazel-bin/tar.tgz "bazel-bin/bin-${platform}.tgz"
