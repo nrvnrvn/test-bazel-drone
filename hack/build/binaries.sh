@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
 # copied from https://github.com/kubernetes/kubernetes/blob/v1.15.1/hack/lib/golang.sh#L42-L53
