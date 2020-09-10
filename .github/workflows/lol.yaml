@@ -3,7 +3,7 @@ name: Greet Everyone
 on: [push]
 
 jobs:
-  Build and test:
+  Action:
     runs-on: ubuntu-20.04
     container:
       image: l.gcr.io/google/bazel:3.5.0
