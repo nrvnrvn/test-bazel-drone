@@ -3,7 +3,7 @@ kind: pipeline
 name: test-bazel
 steps:
 - name: query
-  image: l.gcr.io/google/bazel:0.28.1
+  image: l.gcr.io/google/bazel:3.5.0
   commands:
   - env | sort
   - bazel query //...
@@ -12,7 +12,7 @@ steps:
     path: /root/.cache
 
 - name: test
-  image: l.gcr.io/google/bazel:0.28.1
+  image: l.gcr.io/google/bazel:3.5.0
   commands:
   - ./hack/build/test.sh
   volumes:
@@ -20,7 +20,7 @@ steps:
     path: /root/.cache
 
 - name: build and push docker image
-  image: l.gcr.io/google/bazel:0.28.1
+  image: l.gcr.io/google/bazel:3.5.0
   environment:
     DOCKER_AUTH:
       from_secret: docker-config-json
@@ -35,7 +35,7 @@ steps:
     - refs/tags/v*
 
 - name: build binaries
-  image: l.gcr.io/google/bazel:0.28.1
+  image: l.gcr.io/google/bazel:3.5.0
   environment:
     DOCKER_AUTH:
       from_secret: docker-config-json

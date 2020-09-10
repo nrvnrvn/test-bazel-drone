@@ -33,8 +33,7 @@ func main() {
 		// fmt.Printf("%x %x\n", publicKey, privateKey)
 		// time.Sleep(1 * time.Second)
 		fmt.Printf(
-			"W %s [BlablaProcessor.onBlablaRequest-C-0]> NetworkClient: [Consumer clientId=consumer-%d, groupId=lol-service] Connection to node 0 could not be established. Broker may not be available. [lol-service,,,,,,,,,]\n",
-			// "%s WARN Client session timed out, have not heard from server in %dms for sessionid 0x%x (org.apache.zookeeper.ClientCnxn)\n",
+			"%s %d\n",
 			now.Format("2006-01-02 15:04:05.000"),
 			rand.Intn(1000),
 			// rand.Uint64(),
