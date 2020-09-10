@@ -5,7 +5,8 @@ on: [push]
 jobs:
   Build and test:
     runs-on: ubuntu-20.04
-    container: l.gcr.io/google/bazel:3.5.0
+    container:
+      image: l.gcr.io/google/bazel:3.5.0
       volumes:
         - bazel_cache:/root/.cache
     steps:
