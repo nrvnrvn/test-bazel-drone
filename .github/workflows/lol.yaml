@@ -3,15 +3,19 @@ name: Greet Everyone
 on: [push]
 
 jobs:
-  query:
+  Build and test:
     runs-on: ubuntu-20.04
     container: l.gcr.io/google/bazel:3.5.0
+      volumes:
+        - bazel_cache:/root/.cache
     steps:
       # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
-      - name: Hello world
+      - name: Query
         run: |
           env | sort
-          bazel query//...
+          bazel query //...
+      - name: Test
+        run: ./hack/build/test.sh
        # with:
        #   who-to-greet: 'Mona the Octocat'
        # id: hello
